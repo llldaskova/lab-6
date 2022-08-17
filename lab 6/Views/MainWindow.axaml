@@ -12,6 +12,9 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 	<StackPanel>
+		<DatePicker Name="DatePicker" SelectedDate="{Binding Date}" />
+		<TextBlock Text="{Binding Date}" />
+		<ScrollViewer VerticalScrollBarVisibility="Auto">
 	<ItemsControl Items="{Binding Items}">
 		<ItemsControl.ItemTemplate>
 			<DataTemplate>
@@ -20,8 +23,8 @@
 				</Grid>
 			</DataTemplate>
 		</ItemsControl.ItemTemplate>
-		
 	</ItemsControl>
+			</ScrollViewer>
 		<Button Command="{Binding AddNoteButton}"  Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   >Добавить</Button>
 		
 	
