@@ -6,27 +6,11 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="lab_6.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="lab_6">
+        Title="lab_6"
+		Content="{Binding Content}">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
-	<StackPanel>
-		<DatePicker Name="DatePicker" SelectedDate="{Binding Date}" />
-		<TextBlock Text="{Binding Date}" />
-		<ScrollViewer VerticalScrollBarVisibility="Auto">
-	<ItemsControl Items="{Binding Items}">
-		<ItemsControl.ItemTemplate>
-			<DataTemplate>
-				<Grid RowDefinitions="*" ColumnDefinitions="*,0.25*" ShowGridLines="True">
-				<TextBlock Text="{Binding Name}" Grid.Row="0" Grid.Column="0"/>
-				</Grid>
-			</DataTemplate>
-		</ItemsControl.ItemTemplate>
-	</ItemsControl>
-			</ScrollViewer>
-		<Button Command="{Binding AddNoteButton}"  Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   >Добавить</Button>
-		
 	
-		</StackPanel>
 </Window>
