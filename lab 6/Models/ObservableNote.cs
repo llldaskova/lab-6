@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace lab_6.Models
 {
-    public class ObservableNote
+    public class ObservableNote: INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+        public ObservableCollection<Note> ResultNote { get; set; }
         
-        public ObservableCollection<Note> ResultNote { get;  private set; }
         private string date;
         NoteDictionary dictionary;
         public ObservableNote(string date, NoteDictionary dictionary)
@@ -19,12 +26,9 @@ namespace lab_6.Models
             this.dictionary = dictionary;
             ResultNote = new ObservableCollection<Note>();
             CreateNote();
-
+            //OnPropertyChanged();
         }
-        public void Clear()
-        {
-            ResultNote.Clear();
-        }
+       
         public void Update()
         {
             dictionary.noteDateDictionary[date].Clear();
@@ -35,7 +39,7 @@ namespace lab_6.Models
             dictionary.saveInFail();
 
         }
-        private void CreateNote()
+        public void CreateNote()
         {
             if (dictionary.noteDateDictionary.ContainsKey(date))
             {

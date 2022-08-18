@@ -2,12 +2,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+              mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="400"
+			  Width="500" Height="400"
              x:Class="lab_6.Views.SubWindowView">
 	<StackPanel>
-		<TextBox Text="{Binding Text}" />
+		<TextBox Text="{Binding Text}" TextWrapping="Wrap" AcceptsReturn="True" />
 		<TextBox  Text="{Binding BodyNote}" />
-		<Button Command="{Binding OkButton}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   >Ok</Button>
+		<Button Command="{Binding OkButton}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   >
+			Ok </Button>
 		<Button  Command="{Binding CancelButton}" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   >Cancel</Button>
 		</StackPanel>	
 	

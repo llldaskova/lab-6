@@ -55,38 +55,19 @@ namespace lab_6.ViewModels
                 //if(Items!=null)
                 // Items.Clear();
                 //Items = new ObservableNote(date, Dictionary);
-                DatePickerView();
+                this.DatePickerView();
             }
         }
         private void DatePickerView()
         {
             if (Items != null)
+            {
                 Items.ResultNote.Clear();
-            Items = new ObservableNote(date, Dictionary);
+                
+            }
+            Items = new ObservableNote(Date, Dictionary);
         }
-
-       
-        // private string bodyNote;
-
-
-        /*      private string nameNote;
-              public string NameNote
-              {
-                  get
-                  {
-                      return nameNote;
-                  }
-                  set
-                  {
-                      this.RaiseAndSetIfChanged(ref nameNote, value);
-                  }
-              }*/
-
-
         public NoteWindowViewModel NoteWindow { get;  }
-
-        
-
         public void AddNoteButton()
         {
             var sub = new SubWindowViewModel();
@@ -95,8 +76,6 @@ namespace lab_6.ViewModels
                 if (msg != null)
                 {
                     Items.AddObservableNote(new Note(msg, sub.BodyNote));
-                   /* bodyNote = sub.BodyNote;
-                    NameNote = msg;*/
                 }
                 Content = NoteWindow;
             });
@@ -124,7 +103,10 @@ namespace lab_6.ViewModels
             Content = sub;
 
         }
-
+        public void DeleteClickButton(Note item)
+        {
+            Items.DeleteObservableNote(item);
+        }
 
     }
 }

@@ -2,24 +2,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="400"
+			  Width="500" Height="400"
              x:Class="lab_6.Views.NoteWindowView">
 	<StackPanel>
 		<DatePicker Name="DatePicker" SelectedDate="{Binding $parent[Window].DataContext.Date}" />
-			<TextBlock Text="{Binding $parent[Window].DataContext.Date}" />
+	
 		<ScrollViewer VerticalScrollBarVisibility="Auto">
 			<ItemsControl Items="{Binding $parent[Window].DataContext.Items.ResultNote}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
-						<Grid RowDefinitions="*" ColumnDefinitions="*,0.25*" ShowGridLines="True">
+						<Grid RowDefinitions="40" ColumnDefinitions="*,0.25*,0.25*" ShowGridLines="True">
 							<TextBlock Text="{Binding Name}" Grid.Row="0" Grid.Column="0"/>
-							<Button Command="{Binding $parent[Window].DataContext.ItemClickButton}" CommandParameter="{Binding}" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+							<Button Command="{Binding $parent[Window].DataContext.ItemClickButton}" CommandParameter="{Binding}" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"><Image Source="/Assets/1.ico"/></Button>
+							<Button Command="{Binding $parent[Window].DataContext.DeleteClickButton}" CommandParameter="{Binding}" Grid.Column="2" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"><Image Source="/Assets/2.ico"/></Button>
 						</Grid>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
 		</ScrollViewer>
-		<Button Command="{Binding $parent[Window].DataContext.AddNoteButton}"  Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   >Добавить</Button>
+		<Button Command="{Binding $parent[Window].DataContext.AddNoteButton}"   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   >Добавить</Button>
 
 	</StackPanel>
 </UserControl>
