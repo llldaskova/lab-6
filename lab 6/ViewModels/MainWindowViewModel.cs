@@ -25,24 +25,21 @@ namespace lab_6.ViewModels
         public MainWindowViewModel()
         {
             Content= NoteWindow = new NoteWindowViewModel();
-            Items = new ObservableCollection<Note>(BuildNote());
+            Dictionary = new NoteDictionary();
+            Date = DateTime.Today.ToString();
+            
+            //Items = new ObservableNote(Date,Dictionary);
            /* AddNoteButton = ReactiveCommand.Create(() =>
             {
 
                 Items.Add(new Note("Заметка 3", "Вот в этой заметочке что то лежит", DateTime.Today.ToString()));
             });*/
-            Date = DateTime.Today.ToString();
+           
             //SubWindow = new SubWindowViewModel();
         }
-        public ObservableCollection<Note> Items { get; set; }
-        private Note[] BuildNote()
-        {
-            return new Note[]
-            {
-                new Note ("Заметка 1", "Вот в этой заметочке что то лежит",new DateTime(2022,7,1).ToString()),
-                new Note ("Заметка 2", "Вот в этой заметочке что то лежит",new DateTime(2022,5,1).ToString())
-            };
-        }
+       // public ObservableCollection<Note> Items { get; set; }
+        public NoteDictionary Dictionary;
+        public ObservableNote Items { get; set; }
        // public ReactiveCommand<Unit, Unit> AddNoteButton { get; }
 
         private string date;
@@ -55,50 +52,40 @@ namespace lab_6.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref date, value);
+                //if(Items!=null)
+                // Items.Clear();
+                //Items = new ObservableNote(date, Dictionary);
+                DatePickerView();
             }
         }
-        private string bodyNote;
-       /* public string NN
+        private void DatePickerView()
         {
-            get
-            {
-                return bodyNote;
-            }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref bodyNote, value);
-            }
-        }*/
+            if (Items != null)
+                Items.ResultNote.Clear();
+            Items = new ObservableNote(date, Dictionary);
+        }
 
-        private string nameNote;
-        public string NameNote
-        {
-            get
-            {
-                return nameNote;
-            }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref nameNote, value);
-            }
-        }
+       
+        // private string bodyNote;
+
+
+        /*      private string nameNote;
+              public string NameNote
+              {
+                  get
+                  {
+                      return nameNote;
+                  }
+                  set
+                  {
+                      this.RaiseAndSetIfChanged(ref nameNote, value);
+                  }
+              }*/
 
 
         public NoteWindowViewModel NoteWindow { get;  }
 
-        private void OpenSubwindow(SubWindowViewModel sub)
-        {
-            Observable.Merge(sub.OkButton, sub.CancelButton.Select(_ => (string)null)).Take(1).Subscribe(msg =>
-            {
-                if (msg != null)
-                {
-                    bodyNote = sub.BodyNote;
-                    NameNote = msg;
-                }
-                Content = NoteWindow;
-            });
-            Content = sub;
-        }
+        
 
         public void AddNoteButton()
         {
@@ -107,8 +94,9 @@ namespace lab_6.ViewModels
             {
                 if (msg != null)
                 {
-                    bodyNote = sub.BodyNote;
-                    NameNote = msg;
+                    Items.AddObservableNote(new Note(msg, sub.BodyNote));
+                   /* bodyNote = sub.BodyNote;
+                    NameNote = msg;*/
                 }
                 Content = NoteWindow;
             });
@@ -129,6 +117,7 @@ namespace lab_6.ViewModels
                 {
                     item.Text = sub.BodyNote;
                     item.Name = msg;
+                    Items.Update();
                 }
                 Content = NoteWindow;
             });

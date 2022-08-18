@@ -6,8 +6,9 @@
              x:Class="lab_6.Views.NoteWindowView">
 	<StackPanel>
 		<DatePicker Name="DatePicker" SelectedDate="{Binding $parent[Window].DataContext.Date}" />
+			<TextBlock Text="{Binding $parent[Window].DataContext.Date}" />
 		<ScrollViewer VerticalScrollBarVisibility="Auto">
-			<ItemsControl Items="{Binding $parent[Window].DataContext.Items}">
+			<ItemsControl Items="{Binding $parent[Window].DataContext.Items.ResultNote}">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
 						<Grid RowDefinitions="*" ColumnDefinitions="*,0.25*" ShowGridLines="True">

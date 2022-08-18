@@ -10,30 +10,49 @@ namespace lab_6.Models
     public class ObservableNote
     {
         
-        public ObservableCollection<Note> ResultNote { get; private set; }
+        public ObservableCollection<Note> ResultNote { get;  private set; }
         private string date;
+        NoteDictionary dictionary;
         public ObservableNote(string date, NoteDictionary dictionary)
         {
             this.date = date;
-            dictionary = new NoteDictionary();
+            this.dictionary = dictionary;
             ResultNote = new ObservableCollection<Note>();
-            CreateNote(dictionary);
+            CreateNote();
 
         }
-        private void CreateNote( NoteDictionary dictionary)
+        public void Clear()
         {
-            foreach(var n in dictionary.noteDateDictionary[date])
-            {
-                ResultNote.Add(n);
-            }
+            ResultNote.Clear();
         }
-        public void AddObservableNote( Note note, NoteDictionary dictionary)
+        public void Update()
+        {
+            dictionary.noteDateDictionary[date].Clear();
+            foreach(var n in ResultNote)
+            {
+                dictionary.noteDateDictionary[date].Add(n);
+            }
+            dictionary.saveInFail();
+
+        }
+        private void CreateNote()
+        {
+            if (dictionary.noteDateDictionary.ContainsKey(date))
+            {
+                foreach (var n in dictionary.noteDateDictionary[date])
+                {
+                    ResultNote.Add(n);
+                }
+            }
+            
+        }
+        public void AddObservableNote( Note note)
         {
             ResultNote.Add(note);
             dictionary.AddInDictionary(date, note);
 
         }
-        public void DeleteObservableNote( Note note, NoteDictionary dictionary)
+        public void DeleteObservableNote( Note note)
         {
             for (int i = 0; i < ResultNote.Count; i++)
             {

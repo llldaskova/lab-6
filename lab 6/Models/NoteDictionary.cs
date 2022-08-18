@@ -25,7 +25,7 @@ namespace lab_6.Models
         }
         public Dictionary<string, List<Note>> noteDateDictionary{ get;  private set; }
 
-        private void saveInFail()
+        public void saveInFail()
         {
             if(noteDateDictionary.Count!=0)
                 File.WriteAllText(failName, JsonConvert.SerializeObject(noteDateDictionary));
