@@ -10,16 +10,21 @@ namespace lab_6.Models
     {
         public string Name { get; set; }
         public string Text { get; set; }
-        public string Date { get; set; }
-        public Note(string name, string text, string date)
+        public Note(string name, string text)
         {
             Name = name;
             Text = text;
-            Date = date;
+        }
+
+        public bool Search (Note note)
+        {
+            if (note.Name == Name && note.Text == Text)
+                return true;
+            return false;
         }
         public override string ToString()
         {
-            return Name;
+            return Name+"\n"+Text;
         }
     }
 }
