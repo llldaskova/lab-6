@@ -12,7 +12,11 @@ namespace lab_6.ViewModels
     {
         public SubWindowViewModel()
         {
-            OkButton = ReactiveCommand.Create(() => Text);
+            var msgEnabled = this.WhenAnyValue(
+                msg => msg.Text,
+                msg=>!string.IsNullOrWhiteSpace(msg)
+                );
+            OkButton = ReactiveCommand.Create(() => Text, msgEnabled);
             CancelButton= ReactiveCommand.Create(() => { });
 
         }

@@ -11,15 +11,14 @@
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
 						<Grid RowDefinitions="*" ColumnDefinitions="*,0.25*" ShowGridLines="True">
-							<TextBlock Text="{Binding $parent[Window].DataContext.Name}" Grid.Row="0" Grid.Column="0"/>
+							<TextBlock Text="{Binding Name}" Grid.Row="0" Grid.Column="0"/>
+							<Button Command="{Binding $parent[Window].DataContext.ItemClickButton}" CommandParameter="{Binding}" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
 						</Grid>
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
 		</ScrollViewer>
 		<Button Command="{Binding $parent[Window].DataContext.AddNoteButton}"  Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"   >Добавить</Button>
-		<TextBox Text="{Binding $parent[Window].DataContext.NN}" />
-		<TextBox Text="{Binding $parent[Window].DataContext.NameNote}" />
 
 	</StackPanel>
 </UserControl>

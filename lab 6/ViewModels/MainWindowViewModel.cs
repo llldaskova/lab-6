@@ -58,7 +58,7 @@ namespace lab_6.ViewModels
             }
         }
         private string bodyNote;
-        public string NN
+       /* public string NN
         {
             get
             {
@@ -68,7 +68,7 @@ namespace lab_6.ViewModels
             {
                 this.RaiseAndSetIfChanged(ref bodyNote, value);
             }
-        }
+        }*/
 
         private string nameNote;
         public string NameNote
@@ -85,15 +85,29 @@ namespace lab_6.ViewModels
 
 
         public NoteWindowViewModel NoteWindow { get;  }
-        public SubWindowViewModel SubWindow { get;  }
+
+        private void OpenSubwindow(SubWindowViewModel sub)
+        {
+            Observable.Merge(sub.OkButton, sub.CancelButton.Select(_ => (string)null)).Take(1).Subscribe(msg =>
+            {
+                if (msg != null)
+                {
+                    bodyNote = sub.BodyNote;
+                    NameNote = msg;
+                }
+                Content = NoteWindow;
+            });
+            Content = sub;
+        }
+
         public void AddNoteButton()
         {
             var sub = new SubWindowViewModel();
             Observable.Merge(sub.OkButton, sub.CancelButton.Select(_ => (string)null)).Take(1).Subscribe(msg =>
             {
-                if (msg!=null)
+                if (msg != null)
                 {
-                    NN = sub.BodyNote;
+                    bodyNote = sub.BodyNote;
                     NameNote = msg;
                 }
                 Content = NoteWindow;
@@ -101,6 +115,27 @@ namespace lab_6.ViewModels
             Content = sub;
 
         }
-        
+
+        public void ItemClickButton(Note item)
+        {
+            var sub = new SubWindowViewModel();
+            sub.BodyNote = item.Text;
+            sub.Text = item.Name;
+
+
+            Observable.Merge(sub.OkButton, sub.CancelButton.Select(_ => (string)null)).Take(1).Subscribe(msg =>
+            {
+                if (msg != null)
+                {
+                    item.Text = sub.BodyNote;
+                    item.Name = msg;
+                }
+                Content = NoteWindow;
+            });
+            Content = sub;
+
+        }
+
+
     }
 }
